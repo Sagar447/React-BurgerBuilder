@@ -3,7 +3,7 @@ import React from 'react';
 let person = (props) => {
   return(
     <div>
-      <p1>I'm {props.name} am {props.age} years old</p1>
+      <p>I'm {props.name} am {props.age} years old</p>
       <p>{props.children}</p> 
     </div>   
   )
