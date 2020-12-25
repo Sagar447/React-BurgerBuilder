@@ -10,7 +10,9 @@ class App extends Component {
       {name : 'Rob' ,age : 26},
       {name : 'Manu',age : 27},
       {name : 'Stephanie', age: 25}
-    ]
+    ],    
+    otherstate : 'this is other state',
+    showPerson : false
   }
 
   switchNameHandler = (newName) =>{
@@ -33,6 +35,11 @@ class App extends Component {
       ]
     }); 
   } 
+
+  togglePersonHandler=() => {
+    const doesShow = this.state.showPerson;
+    this.setState({showPerson: !doesShow});
+  }
   render() {
 
     const style={
@@ -41,24 +48,35 @@ class App extends Component {
       padding:'16px',
       font:'inherit'
     }
+
+    let persons =null;
+
+    if(this.state.showPerson){
+      persons =
+      (
+        <div>
+            <Person 
+              name ={this.state.persons[0].name} 
+              age ={this.state.persons[0].age}/>
+            <Person
+              name ={this.state.persons[1].name} 
+              age ={this.state.persons[1].age}
+              click = {this.switchNameHandler.bind(this, 'romi')}
+              changed = {this.nameChangeHandler}
+              > his Hobbies: Racing</Person>           
+            <Person 
+              name ={this.state.persons[2].name} 
+              age ={this.state.persons[2].age}/>
+        </div>
+      )
+    }
     return (
       <div className= "App">
         <h1>Welcome to React</h1>
-        <button 
-        onClick = {this.switchNameHandler.bind(this, 'Romulus')}
-        style = {style}
-        >Switch Button</button>
-        <Person 
-          name ={this.state.persons[0].name} age ={this.state.persons[0].age}/>
-        <Person
-           name ={this.state.persons[1].name} 
-           age ={this.state.persons[1].age}
-           click = {this.switchNameHandler.bind(this, 'romi')}
-           changed = {this.nameChangeHandler}
-           > his Hobbies: Racing</Person> 
-            
-        <Person 
-          name ={this.state.persons[2].name} age ={this.state.persons[2].age}/>
+        <button
+          style = {style} 
+          onClick = {this.togglePersonHandler}>Toggle Button</button>
+          {persons}
       </div>
     );
   }
